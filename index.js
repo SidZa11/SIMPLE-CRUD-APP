@@ -14,19 +14,13 @@ const mongoose = require('mongoose');
 const productRouter = require('./routes/product.route')
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '/client/build')));
-console.log((path.join(__dirname, '/client/build')))
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 // MiddleWare
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname+'/client/build/index.html'));
-//   });
 
 // CORS
 app.use(cors());
