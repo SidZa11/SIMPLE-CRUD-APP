@@ -28,6 +28,10 @@ app.use(cors());
 //Route
 app.use('/api/products', productRouter)
 
+app.get('/', (req, res) => {
+    res.send("<h1>Im Node</h1>")
+})
+
 /** Replace <username> and <password> with your "username" and "password". */
 mongoose.connect(process.env.ConnectionStringMongoDB)
 .then(() =>{
