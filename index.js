@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 const productRouter = require('./routes/product.route')
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 // MiddleWare
@@ -28,16 +28,18 @@ app.use(cors());
 //Route
 app.use('/api/products', productRouter)
 
-app.get('/', (req, res) => {
-    res.send("<h1>Im Node</h1>")
-})
+// Handle all other requests by serving the index.html file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+  
 
 /** Replace <username> and <password> with your "username" and "password". */
 mongoose.connect(process.env.ConnectionStringMongoDB)
 .then(() =>{
     console.log("Connected to Server!");
     app.listen(process.env.Port,()=> {
-        console.log(`server server is running on port ${process.env.Port}. ${(path.join(__dirname, '/client/build'))}`)
+        console.log(`server server is running on port ${process.env.Port}. ${(path.join(__dirname, 'client/build'))}`)
 }
 )})
 .catch(console.log);
